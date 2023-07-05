@@ -1,0 +1,20 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
+
+    <!-- Реализует регистрационные данные юридического лица -->
+    <embeddable name="Maris\Symfony\Company\Entity\RegistrationData" >
+        <field name="inn"/>
+        <field name="ogrn"/>
+        <field name="kpp" nullable="true" />
+        <field name="okato"/>
+        <field name="oktmo"/>
+        <field name="okpo"/>
+        <field name="okfs"/>
+        <field name="okogu"/>
+        <field name="okved"/>
+        <field name="date" type="date_immutable"/>
+    </embeddable>
+
+</doctrine-mapping>

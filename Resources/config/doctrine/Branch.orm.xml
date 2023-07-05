@@ -1,0 +1,38 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
+
+    <!-- Реализует собой филиалы организации -->
+    <entity name="Maris\Symfony\Company\Entity\Branch" table="branches" >
+
+        <id name="id" type="integer" column="id">
+            <generator/>
+        </id>
+
+        <!-- Компания которой принадлежит филиал -->
+        <many-to-one field="company" target-entity="Maris\Symfony\Company\Entity\Company" inversed-by="branches">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <join-columns>
+                <join-column name="company_id"/>
+            </join-columns>
+        </many-to-one>
+
+        <!-- Адрес филиала -->
+        <many-to-one field="address" target-entity="Maris\Symfony\Address\Entity\Address">
+            <join-columns>
+                <join-column name="address_id"/>
+            </join-columns>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
+
+        <!-- Название филиала -->
+        <field name="name" column="title"/>
+
+    </entity>
+
+</doctrine-mapping>
