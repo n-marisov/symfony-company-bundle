@@ -2,30 +2,56 @@
 
 namespace Maris\Symfony\Company\Entity;
 
-use Maris\Symfony\Address\Entity\Address;
+use Maris\Symfony\Address\Interfaces\AddressAggregateInterface;
+use Maris\Symfony\Address\Traits\AddressAggregateNotNullTrait;
 
-/**
- * Филиал организации
+/***
+ * Филиал организации.
  */
-class Branch
+class Branch implements AddressAggregateInterface
 {
+    /**
+     * Реализация AddressAggregateInterface::class
+     */
+    use AddressAggregateNotNullTrait;
+
+    /**
+     * Идентификатор.
+     * @var int|null
+     */
     protected ?int $id;
 
-    /**
-     * Компания которой принадлежит филиал
-     * @var Company
-     */
-    protected Company $company;
-
-    /**
-     * Адрес филиала
-     * @var Address
-     */
-    protected Address $address;
-
-    /**
-     * Название филиала
+    /***
+     * Название филиала.
      * @var string
      */
     protected string $name;
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+
 }

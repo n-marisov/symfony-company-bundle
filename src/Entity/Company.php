@@ -2,100 +2,45 @@
 
 namespace Maris\Symfony\Company\Entity;
 
-use Doctrine\Common\Collections\Collection;
-use Maris\Symfony\Address\Entity\Address;
-use Maris\Symfony\Person\Entity\Person;
 
 /**
  * Сущность юридического лица
  */
-class Company
+class Company extends LegalBusiness
 {
-    /**
-     * ID сущности
-     * @var int|null
+    /***
+     * Организационно-правовая форма.
+     * @var string
      */
-    protected ?int $id;
+    protected string $form;
 
-    /**
-     * Юридический адрес организации
-     * @var Address
-     */
-    protected Address $address;
-
-    /**
-     * Организационно-правовая форма
-     * @var Opf
-     */
-    protected Opf $opf;
-
-    /**
-     * Название организации
+    /***
+     * Название организации.
      * @var string
      */
     protected string $name;
 
     /**
-     * Регистрационные данные компании
-     * @var RegistrationData
+     * КПП Организации.
+     * @var numeric-string
      */
-    protected RegistrationData $registrationData;
-
-
-    /**
-     * Филиалы организации
-     * @var Collection<Branch>
-     */
-    protected Collection $branches;
+    protected string $kpp;
 
     /**
-     * Персона предпринимателя для ИП,
-     * генеральный директор для Юридического лица.
-     * @var Person
+     * @return string
      */
-    protected Person $management;
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
+    public function getForm(): string
     {
-        return $this->id;
+        return $this->form;
     }
 
     /**
-     * @return Address
-     */
-    public function getAddress(): Address
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param Address $address
+     * @param string $form
      * @return $this
      */
-    public function setAddress(Address $address): self
+    public function setForm(string $form): self
     {
-        $this->address = $address;
-        return $this;
-    }
-
-    /**
-     * @return Opf
-     */
-    public function getOpf(): Opf
-    {
-        return $this->opf;
-    }
-
-    /**
-     * @param Opf $opf
-     * @return $this
-     */
-    public function setOpf(Opf $opf): self
-    {
-        $this->opf = $opf;
+        $this->form = $form;
         return $this;
     }
 
@@ -118,59 +63,22 @@ class Company
     }
 
     /**
-     * @return RegistrationData
+     * @return string
      */
-    public function getRegistrationData(): RegistrationData
+    public function getKpp(): string
     {
-        return $this->registrationData;
+        return $this->kpp;
     }
 
     /**
-     * @param RegistrationData $registrationData
+     * @param string $kpp
      * @return $this
      */
-    public function setRegistrationData(RegistrationData $registrationData): self
+    public function setKpp(string $kpp): self
     {
-        $this->registrationData = $registrationData;
+        $this->kpp = $kpp;
         return $this;
     }
-
-    /**
-     * @return Collection
-     */
-    public function getBranches(): Collection
-    {
-        return $this->branches;
-    }
-
-    /**
-     * @param Collection $branches
-     * @return $this
-     */
-    public function setBranches(Collection $branches): self
-    {
-        $this->branches = $branches;
-        return $this;
-    }
-
-    /**
-     * @return Person
-     */
-    public function getManagement(): Person
-    {
-        return $this->management;
-    }
-
-    /**
-     * @param Person $management
-     * @return $this
-     */
-    public function setManagement(Person $management): self
-    {
-        $this->management = $management;
-        return $this;
-    }
-
 
 
 }

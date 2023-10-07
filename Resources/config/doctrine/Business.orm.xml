@@ -3,8 +3,17 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
-    <!-- Реализует собой филиалы организации -->
-    <entity name="Maris\Symfony\Company\Entity\Branch" table="branches" >
+    <!-- Таблица организаций -->
+    <entity name="Maris\Symfony\Company\Entity\Business" table="business" inheritance-type="SINGLE_TABLE">
+
+        <discriminator-column name="legal" type="integer" />
+
+        <discriminator-map>
+            <discriminator-mapping value="0" class="Maris\Symfony\Company\Entity\SelfEmployed"/>
+            <discriminator-mapping value="1" class="Maris\Symfony\Company\Entity\Entrepreneur"/>
+            <discriminator-mapping value="2" class="Maris\Symfony\Company\Entity\Company"/>
+        </discriminator-map>
+
 
         <id name="id" type="integer" column="id">
             <generator/>
@@ -12,14 +21,12 @@
                 <option name="unsigned">true</option>
             </options>
         </id>
-        
-        <!-- Название филиала -->
-        <field name="name" column="title"/>
 
-        <!-- Адрес филиала -->
+        <field name="inn" length="12" />
         <many-to-one field="address" target-entity="Maris\Symfony\Address\Entity\Address">
             <cascade>
                 <cascade-persist/>
+                <cascade-remove/>
             </cascade>
             <join-columns>
                 <join-column name="address_id"/>
@@ -27,5 +34,4 @@
         </many-to-one>
 
     </entity>
-
 </doctrine-mapping>

@@ -12,20 +12,12 @@
   ],
   "require": {
     "php": ">=8.1",
-    "maris/symfony-address-bundle": "dev-master",
-    "maris/symfony-person-bundle": "dev-master",
+    "maris/symfony-address-bundle": "0.*",
+    "maris/symfony-person-bundle": "1.0.4",
     "maris/symfony-suggestions-bundle": "dev-master"
   },
 
   "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/n-marisov/symfony-address-bundle.git"
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/n-marisov/symfony-person-bundle.git"
-    },
     {
       "type": "git",
       "url": "https://github.com/n-marisov/symfony-suggestions-bundle.git"

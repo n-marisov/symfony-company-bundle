@@ -3,10 +3,8 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
-    <!-- Реализует организационно-правовую форму -->
-    <embeddable name="Maris\Symfony\Company\Entity\Opf" >
-        <field name="short" />
-        <field name="full" />
-    </embeddable>
-
+    <!-- Обособленная сущность юр лица -->
+    <mapped-superclass name="Maris\Symfony\Company\Entity\LegalBusiness" >
+        <field name="ogrn" length="13" />
+    </mapped-superclass>
 </doctrine-mapping>
