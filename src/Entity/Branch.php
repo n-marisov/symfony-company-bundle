@@ -2,6 +2,7 @@
 
 namespace Maris\Symfony\Company\Entity;
 
+use Doctrine\ORM\Mapping\ManyToOne;
 use Maris\Symfony\Address\Interfaces\AddressAggregateInterface;
 use Maris\Symfony\Address\Traits\AddressAggregateNotNullTrait;
 
@@ -11,7 +12,9 @@ use Maris\Symfony\Address\Traits\AddressAggregateNotNullTrait;
 class Branch implements AddressAggregateInterface
 {
     /**
-     * Реализация AddressAggregateInterface::class
+     * Физический адрес филиала.
+     * Реализация AddressAggregateInterface::class.
+     *
      */
     use AddressAggregateNotNullTrait;
 
@@ -26,6 +29,9 @@ class Branch implements AddressAggregateInterface
      * @var string
      */
     protected string $name;
+
+    #[ManyToOne(targetEntity: Business::class,cascade: ['persist'])]
+    protected Business $business;
 
     /**
      * @return int|null
