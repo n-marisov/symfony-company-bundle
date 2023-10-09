@@ -15,7 +15,7 @@ abstract class LegalBusiness extends Business
      * ОГРН
      * @var string
      */
-    #[Column(name: 'ogrn',length: '13')]
+    #[Column(name: 'ogrn',type:'string',length: '13')]
     protected string $ogrn;
 
     /**
