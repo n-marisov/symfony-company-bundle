@@ -26,9 +26,9 @@ trait BankAccountsTrait
      * Список всех банковских счетов организации.
      * @var Collection<BankAccount>
      */
-    #[ManyToMany(targetEntity: BankAccount::class,cascade: ['persist','remove'])]
-    #[JoinTable(name: 'business_bank_account')]
-    #[JoinColumn(name:"business_id",referencedColumnName: 'id')]
-    #[InverseJoinColumn(name: 'bank_account_id')]
+    ##[ManyToMany(targetEntity: BankAccount::class,cascade: ['persist','remove'])]
+    ##[JoinTable(name: 'business_bank_account')]
+    ##[JoinColumn(name:"business_id",referencedColumnName: 'id')]
+    ##[InverseJoinColumn(name: 'bank_account_id')]
     protected Collection $bankAccounts;
 }
