@@ -19,7 +19,7 @@ use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
 #[Table(name: 'business')]
 #[InheritanceType('SINGLE_TABLE')]
 #[DiscriminatorColumn(name: 'business_type',type: 'integer')]
-#[DiscriminatorMap([/*Physical::class, Employed::class, Entrepreneur::class, */Company::class, Bank::class ])]
+#[DiscriminatorMap([Physical::class, Employed::class, Entrepreneur::class,Company::class, Bank::class ])]
 abstract class Business
 {
    use EntityIdentifierTrait;

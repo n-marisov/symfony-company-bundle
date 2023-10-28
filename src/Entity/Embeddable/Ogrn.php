@@ -15,7 +15,7 @@ use Stringable;
 #[Embeddable]
 class Ogrn implements Stringable
 {
-    #[Column(name: 'ogrn', length: '15', unique: true)]
+    #[Column(name: 'ogrn', length: '15')]
     protected string $value;
 
     /**

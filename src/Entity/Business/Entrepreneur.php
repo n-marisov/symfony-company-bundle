@@ -31,7 +31,7 @@ use Maris\Symfony\Person\Entity\Person;
  * 4. ИП имеет организационно правовую форму, но она неизменяема.
  * 5. ИП может иметь склады загрузки/выгрузки.
  */
-//#[Entity]
+#[Entity]
 class Entrepreneur extends Business implements PersonAggregateInterface,HaveLegalFormInterface,HaveWarehousesInterface,HaveInnInterface,HaveOgrnInterface, HaveLegalAddressInterface
 {
     /**

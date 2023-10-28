@@ -16,7 +16,7 @@ use Stringable;
 #[Embeddable]
 class CorrespondentAccount implements Stringable
 {
-    #[Column( name: "correspondent_account", length: 20, unique: true)]
+    #[Column( name: "correspondent_account", length: 20)]
     protected string $value;
 
     /**

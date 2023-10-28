@@ -8,7 +8,7 @@ use Stringable;
 
 class Snils implements Stringable
 {
-    #[Column( name: "snils", length: 11, unique: true)]
+    #[Column( name: "snils", length: 11)]
     protected string $value;
 
     /**
