@@ -2,6 +2,7 @@
 
 namespace Maris\Symfony\Company\Entity\Business;
 
+use Doctrine\ORM\Mapping\Entity;
 use Maris\interfaces\Person\Model\PersonAggregateInterface;
 use Maris\Symfony\Company\Interfaces\HaveWarehousesInterface;
 use Maris\Symfony\Company\Traits\PersonTrait;
@@ -17,6 +18,7 @@ use Maris\Symfony\Person\Entity\Person;
  * 1. Физ.лицо не может существовать без объекта персоны.
  * 2. Физ.лицо может иметь склады загрузки/выгрузки.
  */
+#[Entity]
 class Physical extends Business implements PersonAggregateInterface,HaveWarehousesInterface
 {
     /**
