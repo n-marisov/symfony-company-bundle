@@ -40,7 +40,7 @@ use RuntimeException;
  * 6. Компания может иметь склады загрузки/выгрузки.
  * 7. Компания может иметь филиалы.
  */
-#[Entity]
+//#[Entity]
 class Company extends Business implements HaveLegalFormInterface, HaveWarehousesInterface, HaveBranchesInterface,HaveInnInterface,HaveKppInterface,HaveOgrnInterface, HaveLegalAddressInterface
 {
     use InnTrait, OgrnTrait, KppTrait, OpfTrait, CompanyTitleTrait, BankAccountsTrait, WarehouseTrait,LegalAddressTrait;
