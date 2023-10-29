@@ -17,7 +17,7 @@ use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
  */
 #[Entity]
 #[Table(name: 'business',uniqueConstraints: [
-    new UniqueConstraint(name:'bik_index',columns: ['bik'], fields: ['bik'])
+    new UniqueConstraint(name:'bik_index',columns: ['bik'], fields: ['value'])
 ] )]
 #[InheritanceType('SINGLE_TABLE')]
 #[DiscriminatorColumn(name: 'business_type',type: 'integer')]
