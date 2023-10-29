@@ -2,28 +2,47 @@
 
 namespace Maris\Symfony\Company\Entity;
 
+use Doctrine\ORM\Mapping\Embedded;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
+use Maris\Symfony\Company\Entity\Business\Bank;
 use Maris\Symfony\Company\Entity\Business\Business;
 use Maris\Symfony\Company\Entity\Business\Company;
 use Maris\Symfony\Company\Entity\Business\Entrepreneur;
-use Maris\Symfony\Company\Traits\BankTrait;
+use Maris\Symfony\Company\Entity\Unit\BankAccount\Payment;
 use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
-use Maris\Symfony\Company\Traits\PaymentAccountTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /***
- * Счет в банке (Р/С) (реквизиты для оплаты)
+ * Счет в банке (Р/С) (реквизиты для оплаты).
+ * Неизменяемый объект.
  */
-#[Entity]
+
 //У разных банков возможны одинаковые номера счетов.
 //#[UniqueConstraint(columns: ["payment_account"])]
+#[Entity(readOnly: true)]
 #[UniqueEntity(["payment_account","bank_id"])]
 #[Table(name: 'bank_accounts')]
 class BankPaymentAccount
 {
-    use EntityIdentifierTrait, BankTrait, PaymentAccountTrait;
+    use EntityIdentifierTrait;
+
+    /***
+     * Банк в котором открыт счет.
+     * @var Bank
+     */
+    #[ManyToOne(targetEntity: Bank::class,cascade: ['persist'])]
+    #[JoinColumn(name: 'bank_id')]
+    protected Bank $bank;
+
+    /**
+     * Расчетный счет
+     * @var Payment
+     */
+    #[Embedded(class: Payment::class,columnPrefix: false)]
+    protected Payment $paymentAccount;
 
     /***
      * Владелец расчетного счета.
@@ -34,6 +53,19 @@ class BankPaymentAccount
     protected Entrepreneur|Company $business;
 
     /**
+     * @param Company|Entrepreneur $business
+     * @param Bank $bank
+     * @param Payment|string $payment
+     */
+    public function __construct( Entrepreneur|Company $business, Bank $bank, Payment|string $payment )
+    {
+        $this->business = $business;
+        $this->bank = $bank;
+        $this->paymentAccount = (is_string($payment))? new Payment( $payment, $bank->getBik() ) : $payment;
+    }
+
+
+    /**
      * @return Company|Entrepreneur
      */
     public function getBusiness(): Entrepreneur|Company
@@ -42,14 +74,18 @@ class BankPaymentAccount
     }
 
     /**
-     * @param Company|Entrepreneur $business
-     * @return $this
+     * @return Bank
      */
-    public function setBusiness(Entrepreneur|Company $business): self
+    public function getBank(): Bank
     {
-        $this->business = $business;
-        return $this;
+        return $this->bank;
     }
 
-
+    /**
+     * @return Payment
+     */
+    public function getPaymentAccount(): Payment
+    {
+        return $this->paymentAccount;
+    }
 }
