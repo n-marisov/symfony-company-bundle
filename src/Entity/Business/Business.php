@@ -15,16 +15,26 @@ use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
  * Реализует любую форму бизнеса.
  * Не является прямой сущностью.
  * Объединяет всех представителей бизнеса в одной таблице.
+ * Является отражением "Юридического лица" (а не филиала).
  */
 #[Entity]
 #[Table(name: 'business')]
 #[InheritanceType('SINGLE_TABLE')]
+/***
+ * ИНН и ОГРН у филиалов одинаковы.
+ */
 #[UniqueConstraint(columns: ["inn"])]
 #[UniqueConstraint(columns: ["ogrn"])]
 #[UniqueConstraint(columns: ["kpp"])]
 #[UniqueConstraint(columns: ["bik"])]
-#[DiscriminatorColumn(name: 'business_type',type: 'integer')]
-#[DiscriminatorMap([Physical::class, Employed::class, Entrepreneur::class,Company::class, Bank::class ])]
+#[DiscriminatorColumn(name: 'business_type',type: 'string')]
+#[DiscriminatorMap([
+    "Физ.лицо" => Physical::class,
+    "Самозанятый" => Employed::class,
+    "ИП" => Entrepreneur::class,
+    "Фирма" => Company::class,
+    "Банк" => Bank::class
+    ])]
 abstract class Business
 {
    use EntityIdentifierTrait;

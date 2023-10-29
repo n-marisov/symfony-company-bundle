@@ -1,8 +1,7 @@
 <?php
 
 namespace Maris\Symfony\Company\Interfaces;
-use Maris\Symfony\Company\Entity\Embeddable\Inn;
-use Maris\Symfony\Company\Entity\Embeddable\Kpp;
+use Maris\Symfony\Company\Entity\Unit\LegalNumber\Kpp;
 
 /***
  * Интерфейс для сущностей которые имеют ИНН.

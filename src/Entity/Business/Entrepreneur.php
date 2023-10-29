@@ -3,24 +3,24 @@
 namespace Maris\Symfony\Company\Entity\Business;
 
 use Doctrine\ORM\Mapping\Entity;
+use Maris\interfaces\Person\Model\PersonAggregateInterface;
+use Maris\Symfony\Company\Entity\Unit\LegalForm;
+use Maris\Symfony\Company\Entity\Unit\LegalNumber\Inn;
+use Maris\Symfony\Company\Entity\Unit\LegalNumber\Ogrn;
 use Maris\Symfony\Company\Interfaces\HaveInnInterface;
 use Maris\Symfony\Company\Interfaces\HaveLegalAddressInterface;
+use Maris\Symfony\Company\Interfaces\HaveLegalFormInterface;
 use Maris\Symfony\Company\Interfaces\HaveOgrnInterface;
 use Maris\Symfony\Company\Interfaces\HaveWarehousesInterface;
-use Maris\Symfony\Company\Traits\LegalAddressTrait;
-use Maris\Symfony\Company\Traits\WarehouseTrait;
-use RuntimeException;
-use Maris\interfaces\Person\Model\PersonAggregateInterface;
-use Maris\Symfony\Company\Entity\Embeddable\Inn;
-use Maris\Symfony\Company\Entity\Embeddable\LegalForm;
-use Maris\Symfony\Company\Entity\Embeddable\Ogrn;
-use Maris\Symfony\Company\Interfaces\HaveLegalFormInterface;
 use Maris\Symfony\Company\Traits\BankAccountsTrait;
 use Maris\Symfony\Company\Traits\InnTrait;
+use Maris\Symfony\Company\Traits\LegalAddressTrait;
 use Maris\Symfony\Company\Traits\OgrnTrait;
 use Maris\Symfony\Company\Traits\OpfTrait;
 use Maris\Symfony\Company\Traits\PersonTrait;
+use Maris\Symfony\Company\Traits\WarehouseTrait;
 use Maris\Symfony\Person\Entity\Person;
+use RuntimeException;
 
 /**
  * Сущность индивидуального предпринимателя.

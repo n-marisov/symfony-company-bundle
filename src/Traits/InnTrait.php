@@ -3,7 +3,7 @@
 namespace Maris\Symfony\Company\Traits;
 
 use Doctrine\ORM\Mapping\Embedded;
-use Maris\Symfony\Company\Entity\Embeddable\Inn;
+use Maris\Symfony\Company\Entity\Unit\LegalNumber\Inn;
 
 /***
  * Трейт импортируется во все сущности, что имеют ИНН.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Maris\Symfony\Company\Entity\Embeddable;
+namespace Maris\Symfony\Company\Entity\Unit;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embeddable;
 

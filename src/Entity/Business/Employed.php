@@ -3,9 +3,8 @@
 namespace Maris\Symfony\Company\Entity\Business;
 
 use Doctrine\ORM\Mapping\Entity;
-
 use Maris\interfaces\Person\Model\PersonAggregateInterface;
-use Maris\Symfony\Company\Entity\Embeddable\Inn;
+use Maris\Symfony\Company\Entity\Unit\LegalNumber\Inn;
 use Maris\Symfony\Company\Interfaces\HaveInnInterface;
 use Maris\Symfony\Company\Interfaces\HaveWarehousesInterface;
 use Maris\Symfony\Company\Traits\InnTrait;

@@ -1,7 +1,7 @@
 <?php
 
 namespace Maris\Symfony\Company\Interfaces;
-use Maris\Symfony\Company\Entity\Embeddable\Ogrn;
+use Maris\Symfony\Company\Entity\Unit\LegalNumber\Ogrn;
 
 /***
  * Интерфейс для сущностей которые имеют ИНН.

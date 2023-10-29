@@ -3,7 +3,7 @@
 namespace Maris\Symfony\Company\Traits;
 
 use Doctrine\ORM\Mapping\Embedded;
-use Maris\Symfony\Company\Entity\Embeddable\Kpp;
+use Maris\Symfony\Company\Entity\Unit\LegalNumber\Kpp;
 
 trait KppTrait
 {

@@ -3,7 +3,7 @@
 namespace Maris\Symfony\Company\Traits;
 
 use Doctrine\ORM\Mapping\Embedded;
-use Maris\Symfony\Company\Entity\Embeddable\CorrespondentAccount;
+use Maris\Symfony\Company\Entity\Unit\BankAccount\Correspondent;
 
 /**
  * Экспортируется в сущности которые могут иметь Корреспондентский счет.
@@ -12,24 +12,24 @@ trait CorrespondentTrait
 {
     /***
      * Корреспондентский счет.
-     * @var CorrespondentAccount
+     * @var Correspondent
      */
-    #[Embedded(class: CorrespondentAccount::class,columnPrefix: false)]
-    protected CorrespondentAccount $correspondent;
+    #[Embedded(class: Correspondent::class,columnPrefix: false)]
+    protected Correspondent $correspondent;
 
     /**
-     * @return CorrespondentAccount
+     * @return Correspondent
      */
-    public function getCorrespondent(): CorrespondentAccount
+    public function getCorrespondent(): Correspondent
     {
         return $this->correspondent;
     }
 
     /**
-     * @param CorrespondentAccount $correspondent
+     * @param Correspondent $correspondent
      * @return $this
      */
-    public function setCorrespondent(CorrespondentAccount $correspondent): static
+    public function setCorrespondent(Correspondent $correspondent): static
     {
         $this->correspondent = $correspondent;
         return $this;

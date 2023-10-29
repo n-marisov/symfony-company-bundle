@@ -8,11 +8,10 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
-use Doctrine\ORM\Mapping\UniqueConstraint;
-use Maris\Symfony\Company\Entity\Embeddable\Bik;
-use Maris\Symfony\Company\Entity\Embeddable\CorrespondentAccount;
-use Maris\Symfony\Company\Entity\Embeddable\Inn;
-use Maris\Symfony\Company\Entity\Embeddable\Kpp;
+use Maris\Symfony\Company\Entity\Unit\BankAccount\Correspondent;
+use Maris\Symfony\Company\Entity\Unit\LegalNumber\Bik;
+use Maris\Symfony\Company\Entity\Unit\LegalNumber\Inn;
+use Maris\Symfony\Company\Entity\Unit\LegalNumber\Kpp;
 use Maris\Symfony\Company\Interfaces\HaveBikInterface;
 use Maris\Symfony\Company\Interfaces\HaveBranchesInterface;
 use Maris\Symfony\Company\Interfaces\HaveInnInterface;
@@ -49,7 +48,7 @@ class Bank extends Business implements HaveBranchesInterface,HaveInnInterface,Ha
     #[OneToMany(mappedBy: 'mainBranch', targetEntity: self::class, cascade: ['persist'])]
     protected Collection $branches;
 
-    public function __construct( string $title , Inn|string $inn ,Kpp|string $kpp, Bik|string $bik, CorrespondentAccount $correspondent )
+    public function __construct(string $title , Inn|string $inn , Kpp|string $kpp, Bik|string $bik, Correspondent $correspondent )
     {
         $this->branches = new ArrayCollection();
         $this->setName( $title )->setInn($inn)->setKpp($kpp)->setBik($bik)->setCorrespondent($correspondent);

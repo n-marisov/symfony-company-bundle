@@ -3,7 +3,7 @@
 namespace Maris\Symfony\Company\Traits;
 
 use Doctrine\ORM\Mapping\Embedded;
-use Maris\Symfony\Company\Entity\Embeddable\LegalForm;
+use Maris\Symfony\Company\Entity\Unit\LegalForm;
 
 /***
  * Трейт импортируется в сущности, что имеют организационно-правовую форму.

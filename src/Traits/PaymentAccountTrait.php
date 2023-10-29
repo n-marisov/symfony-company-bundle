@@ -3,7 +3,7 @@
 namespace Maris\Symfony\Company\Traits;
 
 use Doctrine\ORM\Mapping\Embedded;
-use Maris\Symfony\Company\Entity\Embeddable\PaymentAccount;
+use Maris\Symfony\Company\Entity\Unit\BankAccount\Payment;
 
 /***
  * Экспортируется в сущности которые имеют расчетный счет.
@@ -12,24 +12,24 @@ trait PaymentAccountTrait
 {
     /**
      * Расчетный счет
-     * @var PaymentAccount
+     * @var Payment
      */
-    #[Embedded(class: PaymentAccount::class,columnPrefix: false)]
-    protected PaymentAccount $paymentAccount;
+    #[Embedded(class: Payment::class,columnPrefix: false)]
+    protected Payment $paymentAccount;
 
     /**
-     * @return PaymentAccount
+     * @return Payment
      */
-    public function getPaymentAccount(): PaymentAccount
+    public function getPaymentAccount(): Payment
     {
         return $this->paymentAccount;
     }
 
     /**
-     * @param PaymentAccount $paymentAccount
+     * @param Payment $paymentAccount
      * @return $this
      */
-    public function setPaymentAccount(PaymentAccount $paymentAccount): self
+    public function setPaymentAccount(Payment $paymentAccount): self
     {
         $this->paymentAccount = $paymentAccount;
         return $this;

@@ -23,6 +23,4 @@ trait EntityIdentifierTrait
     {
         return $this->id;
     }
-
-
 }
