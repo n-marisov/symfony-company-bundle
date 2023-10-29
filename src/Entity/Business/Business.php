@@ -16,7 +16,7 @@ use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
  * Не является прямой сущностью.
  * Объединяет всех представителей бизнеса в одной таблице.
  */
-#[Entity]
+//#[Entity]
 #[Table(name: 'business')]
 #[InheritanceType('SINGLE_TABLE')]
 #[DiscriminatorColumn(name: 'business_type',type: 'integer')]
