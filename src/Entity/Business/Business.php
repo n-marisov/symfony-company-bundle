@@ -16,9 +16,8 @@ use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
  * Объединяет всех представителей бизнеса в одной таблице.
  */
 #[Entity]
-#[Table(name: 'business',uniqueConstraints: [
-    new UniqueConstraint(name:'bik_index',columns: ['bik'], fields: ['value'])
-] )]
+#[Table(name: 'business')]
+#[UniqueConstraint(name: 'unique_bik',columns: ['bik'],fields: ['bik'])]
 #[InheritanceType('SINGLE_TABLE')]
 #[DiscriminatorColumn(name: 'business_type',type: 'integer')]
 #[DiscriminatorMap([Physical::class, Employed::class, Entrepreneur::class,Company::class, Bank::class ])]
