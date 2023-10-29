@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use Maris\Symfony\Company\Entity\Embeddable\Bik;
 use Maris\Symfony\Company\Entity\Embeddable\CorrespondentAccount;
 use Maris\Symfony\Company\Entity\Embeddable\Inn;
@@ -28,6 +29,7 @@ use Maris\Symfony\Company\Traits\LegalAddressTrait;
  * Сущность Банк.
  */
 #[Entity]
+#[UniqueConstraint(name: 'unique_bik',columns: ['bik'])]
 class Bank extends Business implements HaveBranchesInterface,HaveInnInterface,HaveKppInterface,HaveBikInterface,HaveLegalAddressInterface
 {
     use InnTrait, KppTrait, BikTrait, CorrespondentTrait, CompanyTitleTrait,LegalAddressTrait;

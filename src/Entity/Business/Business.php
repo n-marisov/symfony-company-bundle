@@ -5,6 +5,7 @@ namespace Maris\Symfony\Company\Entity\Business;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\UniqueConstraint;
@@ -17,7 +18,6 @@ use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
  */
 #[Entity]
 #[Table(name: 'business')]
-#[UniqueConstraint(name: 'unique_bik',columns: ['bik'])]
 #[InheritanceType('SINGLE_TABLE')]
 #[DiscriminatorColumn(name: 'business_type',type: 'integer')]
 #[DiscriminatorMap([Physical::class, Employed::class, Entrepreneur::class,Company::class, Bank::class ])]
