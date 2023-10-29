@@ -6,6 +6,10 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embeddable;
 use RuntimeException;
 use Stringable;
+use function bcdiv;
+use function bcmul;
+use function bcsub;
+use function substr;
 
 /***
  * Модель ОРГН или ОГРНИП.
