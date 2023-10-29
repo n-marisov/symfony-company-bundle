@@ -50,7 +50,7 @@ class Company extends Business implements HaveLegalFormInterface, HaveWarehouses
      * Если null, то текущая организация головной офис.
      * @var Company |null
      */
-    #[OneToMany(mappedBy: 'branches', targetEntity: self::class, cascade: ["persist"])]
+    #[ManyToOne(targetEntity: self::class, cascade: ["persist"], inversedBy: 'branches')]
     #[JoinColumn(name: 'parent_id')]
     protected ?Company $mainBranch = null;
 
@@ -58,7 +58,7 @@ class Company extends Business implements HaveLegalFormInterface, HaveWarehouses
      * Список дочерних филиалов.
      * @var Collection<Company>
      */
-    #[ManyToOne(targetEntity: self::class,cascade: ['persist'],inversedBy: 'parent')]
+    #[OneToMany(mappedBy: 'mainBranch', targetEntity: self::class, cascade: ['persist'])]
     protected Collection $branches;
 
     /***
