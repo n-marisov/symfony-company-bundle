@@ -38,7 +38,7 @@ class Bank extends Business implements HaveBranchesInterface,HaveInnInterface,Ha
      * Если null, то текущая организация головной офис.
      * @var Bank |null
      */
-    #[OneToMany(mappedBy: 'branches', targetEntity: self::class, cascade: ["persist"])]
+    #[ManyToOne(targetEntity: self::class, cascade: ["persist"], inversedBy: 'branches')]
     #[JoinColumn(name: 'parent_id')]
     protected ?Bank $mainBranch = null;
 
@@ -46,7 +46,7 @@ class Bank extends Business implements HaveBranchesInterface,HaveInnInterface,Ha
      * Список дочерних филиалов.
      * @var Collection<Company>
      */
-    #[ManyToOne(targetEntity: self::class,cascade: ['persist'],inversedBy: 'parent')]
+    #[OneToMany(mappedBy: 'mainBranch', targetEntity: self::class, cascade: ['persist'])]
     protected Collection $branches;
 
     public function __construct( string $title , Inn|string $inn ,Kpp|string $kpp, Bik|string $bik, CorrespondentAccount $correspondent )
