@@ -48,10 +48,15 @@ class Bank extends Business implements HaveBranchesInterface,HaveInnInterface,Ha
     #[OneToMany(mappedBy: 'mainBranch', targetEntity: self::class, cascade: ['persist'])]
     protected Collection $branches;
 
-    public function __construct(string $title , Inn|string $inn , Kpp|string $kpp, Bik|string $bik, Correspondent $correspondent )
+    public function __construct(string $title , Inn|string $inn , Kpp|string $kpp, Bik|string $bik, Correspondent|string $correspondent )
     {
         $this->branches = new ArrayCollection();
-        $this->setName( $title )->setInn($inn)->setKpp($kpp)->setBik($bik)->setCorrespondent($correspondent);
+
+        $this->setName( $title )
+            ->setInn(is_string( $inn )? new Inn($inn) : $inn)
+            ->setKpp(is_string( $kpp )? new Kpp($kpp) : $kpp)
+            ->setBik(is_string( $bik )? new Bik($bik) : $bik)
+            ->setCorrespondent(is_string( $correspondent )? new Correspondent( $correspondent, $this->bik ) : $correspondent);
     }
 
 
