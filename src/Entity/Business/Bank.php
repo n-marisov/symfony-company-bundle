@@ -29,7 +29,6 @@ use Maris\Symfony\Company\Traits\LegalAddressTrait;
  * Сущность Банк.
  */
 #[Entity]
-#[UniqueConstraint(name: 'unique_bik',columns: ['bik'])]
 class Bank extends Business implements HaveBranchesInterface,HaveInnInterface,HaveKppInterface,HaveBikInterface,HaveLegalAddressInterface
 {
     use InnTrait, KppTrait, BikTrait, CorrespondentTrait, CompanyTitleTrait,LegalAddressTrait;
