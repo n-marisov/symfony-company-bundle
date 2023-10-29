@@ -2,8 +2,11 @@
 
 namespace Maris\Symfony\Company\Entity\Business;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\OneToMany;
 use Maris\interfaces\Person\Model\PersonAggregateInterface;
+use Maris\Symfony\Company\Entity\BankPaymentAccount;
 use Maris\Symfony\Company\Entity\Unit\LegalNumber\Inn;
 use Maris\Symfony\Company\Interfaces\HaveInnInterface;
 use Maris\Symfony\Company\Interfaces\HaveWarehousesInterface;

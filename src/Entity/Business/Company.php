@@ -21,6 +21,7 @@ use Maris\Symfony\Company\Interfaces\HaveLegalFormInterface;
 use Maris\Symfony\Company\Interfaces\HaveOgrnInterface;
 use Maris\Symfony\Company\Interfaces\HaveWarehousesInterface;
 use Maris\Symfony\Company\Traits\BankAccountsTrait;
+use Maris\Symfony\Company\Traits\BankPaymentAccountsTrait;
 use Maris\Symfony\Company\Traits\CompanyTitleTrait;
 use Maris\Symfony\Company\Traits\InnTrait;
 use Maris\Symfony\Company\Traits\KppTrait;
@@ -45,6 +46,7 @@ class Company extends Business implements HaveLegalFormInterface, HaveWarehouses
 {
     use InnTrait, OgrnTrait, KppTrait, OpfTrait, CompanyTitleTrait, BankAccountsTrait, WarehouseTrait,LegalAddressTrait;
 
+    use BankPaymentAccountsTrait;
     /**
      * Родительский филиал.
      * Если null, то текущая организация головной офис.

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\OneToOne;
-use Maris\Symfony\Company\Entity\SettlementAccount;
+use Maris\Symfony\Company\Entity\BankPaymentAccount;
 
 /***
  * Экспортируется в сущности которые имеют Банковский счет.
@@ -16,15 +16,15 @@ trait BankAccountsTrait
 {
     /***
      * Банковский счет по умолчанию.
-     * @var SettlementAccount|null
+     * @var BankPaymentAccount|null
      */
-    #[OneToOne(targetEntity: SettlementAccount::class,cascade: ['persist','remove'])]
+    #[OneToOne(targetEntity: BankPaymentAccount::class,cascade: ['persist','remove'])]
     #[JoinColumn( name: 'bank_account',nullable: true )]
-    protected ?SettlementAccount $defaultBankAccount = null;
+    protected ?BankPaymentAccount $defaultBankAccount = null;
 
     /***
      * Список всех банковских счетов организации.
-     * @var Collection<SettlementAccount>
+     * @var Collection<BankPaymentAccount>
      */
     ##[ManyToMany(targetEntity: BankAccount::class,cascade: ['persist','remove'])]
     ##[JoinTable(name: 'business_bank_account')]
