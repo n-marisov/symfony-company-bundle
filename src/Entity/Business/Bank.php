@@ -28,7 +28,7 @@ use Maris\Symfony\Company\Traits\LegalAddressTrait;
 /***
  * Сущность Банк.
  */
-//#[Entity]
+#[Entity]
 class Bank extends Business implements HaveBranchesInterface,HaveInnInterface,HaveKppInterface,HaveBikInterface,HaveLegalAddressInterface
 {
     use InnTrait, KppTrait, BikTrait, CorrespondentTrait, CompanyTitleTrait,LegalAddressTrait;

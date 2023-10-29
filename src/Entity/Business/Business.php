@@ -16,12 +16,12 @@ use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
  * Не является прямой сущностью.
  * Объединяет всех представителей бизнеса в одной таблице.
  */
-//#[Entity]
-/*#[Table(name: 'business')]
+#[Entity]
+#[Table(name: 'business')]
 #[InheritanceType('SINGLE_TABLE')]
 #[DiscriminatorColumn(name: 'business_type',type: 'integer')]
 #[DiscriminatorMap([Physical::class, Employed::class, Entrepreneur::class,Company::class, Bank::class ])]
-*/abstract class Business
+abstract class Business
 {
    use EntityIdentifierTrait;
 }

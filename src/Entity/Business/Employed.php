@@ -21,7 +21,7 @@ use Maris\Symfony\Person\Entity\Person;
  * 2. Самозанятый не может существовать без ИНН.
  * 3. Самозанятый может иметь склады загрузки/выгрузки.
  */
-//#[Entity]
+#[Entity]
 class Employed extends Business implements PersonAggregateInterface, HaveWarehousesInterface,HaveInnInterface
 {
     use InnTrait, PersonTrait, WarehouseTrait;

@@ -18,7 +18,7 @@ use Maris\Symfony\Person\Entity\Person;
  * 1. Физ.лицо не может существовать без объекта персоны.
  * 2. Физ.лицо может иметь склады загрузки/выгрузки.
  */
-//#[Entity]
+#[Entity]
 class Physical extends Business implements PersonAggregateInterface,HaveWarehousesInterface
 {
     /**
