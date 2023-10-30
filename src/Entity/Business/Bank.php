@@ -17,17 +17,19 @@ use Maris\Symfony\Company\Interfaces\HaveBranchesInterface;
 use Maris\Symfony\Company\Interfaces\HaveInnInterface;
 use Maris\Symfony\Company\Interfaces\HaveKppInterface;
 use Maris\Symfony\Company\Interfaces\HaveLegalAddressInterface;
-use Maris\Symfony\Company\Traits\BikTrait;
-use Maris\Symfony\Company\Traits\CompanyTitleTrait;
-use Maris\Symfony\Company\Traits\CorrespondentTrait;
-use Maris\Symfony\Company\Traits\InnTrait;
-use Maris\Symfony\Company\Traits\KppTrait;
-use Maris\Symfony\Company\Traits\LegalAddressTrait;
+use Maris\Symfony\Company\Repository\Business\BankRepository;
+use Maris\Symfony\Company\Traits\Entity\BikTrait;
+use Maris\Symfony\Company\Traits\Entity\CompanyTitleTrait;
+use Maris\Symfony\Company\Traits\Entity\CorrespondentTrait;
+use Maris\Symfony\Company\Traits\Entity\InnTrait;
+use Maris\Symfony\Company\Traits\Entity\KppTrait;
+use Maris\Symfony\Company\Traits\Entity\LegalAddressTrait;
+use RuntimeException;
 
 /***
  * Сущность Банк.
  */
-#[Entity]
+#[Entity(repositoryClass: BankRepository::class)]
 class Bank extends Business implements HaveBranchesInterface,HaveInnInterface,HaveKppInterface,HaveBikInterface,HaveLegalAddressInterface
 {
     use InnTrait, KppTrait, BikTrait, CorrespondentTrait, CompanyTitleTrait,LegalAddressTrait;
@@ -101,6 +103,12 @@ class Bank extends Business implements HaveBranchesInterface,HaveInnInterface,Ha
      */
     public function setMainBranch( Bank $mainBranch ):static
     {
+        if($mainBranch->inn->getValue() !== $this->inn->getValue())
+            throw new RuntimeException("ИНН филиала не может отличатся от ИНН головного офиса.");
+
+        if($mainBranch->kpp->getValue() === $this->kpp->getValue())
+            throw new RuntimeException("КПП филиала не может совпадать с КПП головного офиса.");
+
         $this->mainBranch = $mainBranch;
         return $this;
     }

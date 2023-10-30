@@ -21,6 +21,7 @@ class Bik implements Stringable
 
     /**
      * @param string $value
+     * @throws RuntimeException
      */
     public function __construct( string $value )
     {

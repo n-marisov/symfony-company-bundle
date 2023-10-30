@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\Table;
 use Maris\Symfony\Address\Entity\Address;
 use Maris\Symfony\Address\Interfaces\AddressAggregateInterface;
 use Maris\Symfony\Company\Entity\Business\Business;
-use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
+use Maris\Symfony\Company\Traits\Entity\EntityIdentifierTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**

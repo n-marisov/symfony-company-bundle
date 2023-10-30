@@ -1,6 +1,6 @@
 <?php
 
-namespace Maris\Symfony\Company\Traits;
+namespace Maris\Symfony\Company\Traits\Entity;
 
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\OneToOne;

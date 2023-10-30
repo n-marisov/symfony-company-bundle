@@ -20,15 +20,15 @@ use Maris\Symfony\Company\Interfaces\HaveLegalAddressInterface;
 use Maris\Symfony\Company\Interfaces\HaveLegalFormInterface;
 use Maris\Symfony\Company\Interfaces\HaveOgrnInterface;
 use Maris\Symfony\Company\Interfaces\HaveWarehousesInterface;
-use Maris\Symfony\Company\Traits\BankAccountsTrait;
-use Maris\Symfony\Company\Traits\BankPaymentAccountsTrait;
-use Maris\Symfony\Company\Traits\CompanyTitleTrait;
-use Maris\Symfony\Company\Traits\InnTrait;
-use Maris\Symfony\Company\Traits\KppTrait;
-use Maris\Symfony\Company\Traits\LegalAddressTrait;
-use Maris\Symfony\Company\Traits\OgrnTrait;
-use Maris\Symfony\Company\Traits\OpfTrait;
-use Maris\Symfony\Company\Traits\WarehouseTrait;
+use Maris\Symfony\Company\Repository\Business\CompanyRepository;
+use Maris\Symfony\Company\Traits\Entity\BankPaymentAccountsTrait;
+use Maris\Symfony\Company\Traits\Entity\CompanyTitleTrait;
+use Maris\Symfony\Company\Traits\Entity\InnTrait;
+use Maris\Symfony\Company\Traits\Entity\KppTrait;
+use Maris\Symfony\Company\Traits\Entity\LegalAddressTrait;
+use Maris\Symfony\Company\Traits\Entity\OgrnTrait;
+use Maris\Symfony\Company\Traits\Entity\OpfTrait;
+use Maris\Symfony\Company\Traits\Entity\WarehouseTrait;
 use RuntimeException;
 
 /**
@@ -41,12 +41,16 @@ use RuntimeException;
  * 6. Компания может иметь склады загрузки/выгрузки.
  * 7. Компания может иметь филиалы.
  */
-#[Entity]
+#[Entity(repositoryClass: CompanyRepository::class)]
 class Company extends Business implements HaveLegalFormInterface, HaveWarehousesInterface, HaveBranchesInterface,HaveInnInterface,HaveKppInterface,HaveOgrnInterface, HaveLegalAddressInterface
 {
-    use InnTrait, OgrnTrait, KppTrait, OpfTrait, CompanyTitleTrait, BankAccountsTrait, WarehouseTrait,LegalAddressTrait;
+    use InnTrait, OgrnTrait, KppTrait, OpfTrait, CompanyTitleTrait, WarehouseTrait,LegalAddressTrait;
 
+    /***
+     * Добавляет возможность хранения банковских счетов.
+     */
     use BankPaymentAccountsTrait;
+
     /**
      * Родительский филиал.
      * Если null, то текущая организация головной офис.
@@ -58,7 +62,7 @@ class Company extends Business implements HaveLegalFormInterface, HaveWarehouses
 
     /***
      * Список дочерних филиалов.
-     * @var Collection<Company>
+     * @var Collection<static>
      */
     #[OneToMany(mappedBy: 'mainBranch', targetEntity: self::class, cascade: ['persist'])]
     protected Collection $branches;

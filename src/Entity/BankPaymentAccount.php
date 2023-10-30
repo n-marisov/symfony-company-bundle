@@ -12,7 +12,7 @@ use Maris\Symfony\Company\Entity\Business\Business;
 use Maris\Symfony\Company\Entity\Business\Company;
 use Maris\Symfony\Company\Entity\Business\Entrepreneur;
 use Maris\Symfony\Company\Entity\Unit\BankAccount\Payment;
-use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
+use Maris\Symfony\Company\Traits\Entity\EntityIdentifierTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /***

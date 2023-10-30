@@ -5,11 +5,12 @@ namespace Maris\Symfony\Company\Entity\Business;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\UniqueConstraint;
-use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
+use Maris\Symfony\Company\Repository\Business\BusinessRepository;
+use Maris\Symfony\Company\Traits\Entity\EntityIdentifierTrait;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Реализует любую форму бизнеса.
@@ -18,25 +19,29 @@ use Maris\Symfony\Company\Traits\EntityIdentifierTrait;
  * Является отражением "Юридического лица" (а не филиала).
  * Хранит в себе головной филиал.
  */
-#[Entity]
+
+#[Entity( repositoryClass: BusinessRepository::class )]
 #[Table(name: 'business')]
 #[InheritanceType('SINGLE_TABLE')]
-/***
- * ИНН и ОГРН у филиалов одинаковы.
- */
-#[UniqueConstraint(columns: ["inn"])]
-#[UniqueConstraint(columns: ["ogrn"])]
-#[UniqueConstraint(columns: ["kpp"])]
-#[UniqueConstraint(columns: ["bik"])]
 #[DiscriminatorColumn(name: 'business_type',type: 'string')]
 #[DiscriminatorMap([
-    "Физ.лицо" => Physical::class,
-    "Самозанятый" => Employed::class,
-    "ИП" => Entrepreneur::class,
-    "Фирма" => Company::class,
-    "Банк" => Bank::class
+    "PHYSICAL" => Physical::class, # Физ.лицо
+    "EMPLOYED" => Employed::class, # Самозанятый
+    "ENTREPRENEUR" => Entrepreneur::class, # ИП
+    "COMPANY" => Company::class, # Фирма
+    "BANK" => Bank::class # Банк
     ])]
-abstract class Business
-{
-   use EntityIdentifierTrait;
-}
+
+# Уникален для каждого филиала банка.
+#[UniqueEntity(["bik"])]
+#[UniqueConstraint(columns: ["bik"])]
+
+# ИНН может быть один для всех филиалов организации при разных КПП
+#[UniqueEntity(["inn","kpp"])]
+#[UniqueConstraint(columns: ["inn","kpp"])]
+
+# ОГРН может быть один для всех филиалов организации при разных КПП
+#[UniqueEntity(["ogrn","kpp"])]
+#[UniqueConstraint(columns: ["ogrn","kpp"])]
+
+abstract class Business{ use EntityIdentifierTrait; }

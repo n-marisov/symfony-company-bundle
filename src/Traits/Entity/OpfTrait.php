@@ -1,6 +1,6 @@
 <?php
 
-namespace Maris\Symfony\Company\Traits;
+namespace Maris\Symfony\Company\Traits\Entity;
 
 use Doctrine\ORM\Mapping\Embedded;
 use Maris\Symfony\Company\Entity\Unit\LegalForm;
