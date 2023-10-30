@@ -85,18 +85,18 @@ class BusinessRepository extends ServiceEntityRepository
 
         $builder =  $this->createQueryBuilder('c');
 
-        foreach ( $fields as $field )
+        /*foreach ( $fields as $field )
             foreach ($types as $type)
                 $builder->orWhere("c.business_type = :TYPE_$type AND c.$field LIKE :like_$field")
                     ->setParameter("like_$field","%$value%");
 
         foreach ($types as $type)
-            $builder->setParameter("TYPE_$type",$type);
+            $builder->setParameter("TYPE_$type",$type);*/
 
-/*
+
         foreach ( $fields as $field )
                 $builder->orWhere("c.$field LIKE :like_$field")
-                    ->setParameter("like_$field","%$value%");*/
+                    ->setParameter("like_$field","%$value%");
 
         $this->modifierBuilder->modifyOrderBy("c", $builder, $orderBy);
         $this->modifierBuilder->modifyLimit( $builder, $limit );
