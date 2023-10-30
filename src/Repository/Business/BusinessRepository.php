@@ -87,16 +87,20 @@ class BusinessRepository extends ServiceEntityRepository
 
         $builder = new QueryBuilder( $this->getEntityManager() );
         $builder->select("f","s","i","c","b");
-        $builder->from("f", Physical::class);
-        $builder->from("s", Employed::class);
-        $builder->from("i", Entrepreneur::class);
-        $builder->from("c", Company::class);
-        $builder->from("b", Bank::class);
+        $builder->from(Physical::class, "f");
+        $builder->from(Employed::class, "s");
+        $builder->from(Entrepreneur::class, "i");
+        $builder->from(Company::class, "c");
+        $builder->from(Bank::class, "b");
 
 
         foreach ( $fields as $field )
-            $builder->orWhere("c.$field LIKE :like_$field")
-                ->setParameter("like_$field","%$value%");
+            $builder->setParameter("like_$field","%$value%")
+                ->orWhere("f.$field LIKE :like_$field")
+                ->orWhere("s.$field LIKE :like_$field")
+                ->orWhere("i.$field LIKE :like_$field")
+                ->orWhere("c.$field LIKE :like_$field")
+                ->orWhere("b.$field LIKE :like_$field");
 
         /*foreach ( $fields as $field )
             foreach ($types as $type)
