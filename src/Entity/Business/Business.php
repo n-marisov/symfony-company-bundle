@@ -21,7 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Хранит в себе головной филиал.
  */
 
-#[MappedSuperclass( repositoryClass: BusinessRepository::class )]
+#[Entity( repositoryClass: BusinessRepository::class )]
 #[Table(name: 'business')]
 #[InheritanceType('SINGLE_TABLE')]
 #[DiscriminatorColumn(name: 'business_type',type: 'string')]
