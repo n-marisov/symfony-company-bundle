@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\MappedSuperclass;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use Maris\Symfony\Company\Repository\Business\BusinessRepository;
@@ -20,7 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Хранит в себе головной филиал.
  */
 
-#[Entity( repositoryClass: BusinessRepository::class )]
+#[MappedSuperclass( repositoryClass: BusinessRepository::class )]
 #[Table(name: 'business')]
 #[InheritanceType('SINGLE_TABLE')]
 #[DiscriminatorColumn(name: 'business_type',type: 'string')]
