@@ -114,7 +114,7 @@ abstract class Business
      * Название организации.
      * @var string|null
      */
-    #[Column(name: 'title')]
+    #[Column( name: 'title', nullable: true )]
     protected ?string $title = null;
 
     /***
@@ -122,7 +122,7 @@ abstract class Business
      * @var Person|null
      */
     #[OneToOne(targetEntity: Person::class,cascade: ['persist'])]
-    #[JoinColumn(name: 'person_id')]
+    #[JoinColumn(name: 'person_id', nullable: true )]
     protected ?Person $person = null;
 
     /***
@@ -130,7 +130,7 @@ abstract class Business
      * @var Address|null
      */
     #[ManyToOne(targetEntity: Address::class,cascade: ['persist'])]
-    #[JoinColumn(name: 'legal_address')]
+    #[JoinColumn(name: 'legal_address',nullable: true)]
     protected ?Address $legalAddress = null;
 
     /***
