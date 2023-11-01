@@ -3,33 +3,39 @@
 namespace Maris\Symfony\Company\Traits\Entity;
 
 use Doctrine\ORM\Mapping\Column;
+use Maris\Symfony\Company\Entity\Business\Business;
 
+/**
+ * @extends Business
+ */
 trait CompanyTitleTrait
 {
     /***
      * Название организации.
      * @var string
      */
-    #[Column(name: 'title')]
-    protected string $name;
+//    #[Column(name: 'title')]
+ //   protected ?string $title;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
-     * @param string $name
+     * @param string|null $title
      * @return $this
      */
-    public function setName(string $name): self
+    public function setTitle(?string $title): static
     {
-        $this->name = $name;
+        $this->title = $title;
         return $this;
     }
+
+
 
 
 

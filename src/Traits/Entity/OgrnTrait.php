@@ -14,8 +14,8 @@ trait OgrnTrait
      * ОГРН
      * @var Ogrn
      */
-    #[Embedded(class: Ogrn::class,columnPrefix: false)]
-    protected Ogrn $ogrn;
+//    #[Embedded(class: Ogrn::class,columnPrefix: false)]
+ //   protected Ogrn $ogrn;
 
     /**
      * @return Ogrn

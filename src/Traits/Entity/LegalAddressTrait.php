@@ -11,9 +11,9 @@ use Maris\Symfony\Address\Entity\Address;
  */
 trait LegalAddressTrait
 {
-    #[ManyToOne(targetEntity: Address::class,cascade: ['persist'])]
-    #[JoinColumn(name: 'legal_address')]
-    protected Address $legalAddress;
+//    #[ManyToOne(targetEntity: Address::class,cascade: ['persist'])]
+//    #[JoinColumn(name: 'legal_address')]
+//    protected Address $legalAddress;
 
     /**
      * @return Address

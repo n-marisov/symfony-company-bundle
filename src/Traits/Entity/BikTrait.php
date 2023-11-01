@@ -3,16 +3,21 @@
 namespace Maris\Symfony\Company\Traits\Entity;
 
 use Doctrine\ORM\Mapping\Embedded;
+use Maris\Symfony\Company\Entity\Business\Business;
 use Maris\Symfony\Company\Entity\Unit\LegalNumber\Bik;
 
+/***
+ * @extends Business
+ * @prop
+ */
 trait BikTrait
 {
     /***
      * БИК Банка.
      * @var Bik
      */
-    #[Embedded(class: Bik::class,columnPrefix: false)]
-    protected Bik $bik;
+//    #[Embedded(class: Bik::class,columnPrefix: false)]
+ //   protected Bik $bik;
 
     /**
      * @return Bik

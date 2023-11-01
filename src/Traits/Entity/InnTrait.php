@@ -3,9 +3,11 @@
 namespace Maris\Symfony\Company\Traits\Entity;
 
 use Doctrine\ORM\Mapping\Embedded;
+use Maris\Symfony\Company\Entity\Business\Business;
 use Maris\Symfony\Company\Entity\Unit\LegalNumber\Inn;
 
 /***
+ * @extends Business
  * Трейт импортируется во все сущности, что имеют ИНН.
  */
 trait InnTrait
@@ -14,8 +16,8 @@ trait InnTrait
      * ИНН
      * @var Inn
      */
-    #[Embedded(class: Inn::class,columnPrefix: false)]
-    protected Inn $inn;
+  //  #[Embedded(class: Inn::class,columnPrefix: false)]
+  //  protected Inn $inn;
 
     /**
      * @return Inn

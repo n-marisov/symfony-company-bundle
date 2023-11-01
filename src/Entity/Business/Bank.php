@@ -54,7 +54,7 @@ class Bank extends Business implements HaveBranchesInterface,HaveInnInterface,Ha
     {
         $this->branches = new ArrayCollection();
 
-        $this->setName( $title )
+        $this->setTitle( $title )
             ->setInn(is_string( $inn )? new Inn($inn) : $inn)
             ->setKpp(is_string( $kpp )? new Kpp($kpp) : $kpp)
             ->setBik(is_string( $bik )? new Bik($bik) : $bik)

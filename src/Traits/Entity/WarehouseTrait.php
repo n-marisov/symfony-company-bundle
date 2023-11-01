@@ -14,16 +14,16 @@ trait WarehouseTrait
      * Главный склад.
      * @var Warehouse|null
      */
-    #[ManyToOne(targetEntity: Warehouse::class,cascade: ["persist"])]
+/*    #[ManyToOne(targetEntity: Warehouse::class,cascade: ["persist"])]
     #[JoinColumn(name: 'warehouse_id')]
-    protected ?Warehouse $defaultWarehouse = null;
+    protected ?Warehouse $defaultWarehouse = null;*/
 
     /***
      * Список складов.
      * @var Collection
      */
-    #[OneToMany(mappedBy: 'business', targetEntity: Warehouse::class, cascade: ['persist'])]
-    protected Collection $warehouses;
+/*    #[OneToMany(mappedBy: 'business', targetEntity: Warehouse::class, cascade: ['persist'])]
+    protected Collection $warehouses;*/
 
     /**
      * @return Warehouse|null

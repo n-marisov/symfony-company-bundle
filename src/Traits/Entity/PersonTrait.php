@@ -10,7 +10,7 @@ use Maris\Symfony\Person\Traits\PersonAggregateNotNullTrait;
 trait PersonTrait
 {
     use PersonAggregateNotNullTrait;
-    #[OneToOne(targetEntity: Person::class,cascade: ['persist'])]
+    /*#[OneToOne(targetEntity: Person::class,cascade: ['persist'])]
     #[JoinColumn(name: 'person_id')]
-    protected Person $person;
+    protected Person $person;*/
 }

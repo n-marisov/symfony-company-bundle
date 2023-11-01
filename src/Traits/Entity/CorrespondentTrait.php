@@ -3,9 +3,11 @@
 namespace Maris\Symfony\Company\Traits\Entity;
 
 use Doctrine\ORM\Mapping\Embedded;
+use Maris\Symfony\Company\Entity\Business\Business;
 use Maris\Symfony\Company\Entity\Unit\BankAccount\Correspondent;
 
 /**
+ * @extends Business
  * Экспортируется в сущности которые могут иметь Корреспондентский счет.
  */
 trait CorrespondentTrait
@@ -14,8 +16,8 @@ trait CorrespondentTrait
      * Корреспондентский счет.
      * @var Correspondent
      */
-    #[Embedded(class: Correspondent::class,columnPrefix: false)]
-    protected Correspondent $correspondent;
+//    #[Embedded(class: Correspondent::class,columnPrefix: false)]
+//    protected Correspondent $correspondent;
 
     /**
      * @return Correspondent

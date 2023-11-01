@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\OneToMany;
 use Maris\Symfony\Company\Entity\BankPaymentAccount;
 use Maris\Symfony\Company\Entity\Business\Bank;
+use Maris\Symfony\Company\Entity\Business\Business;
 use RuntimeException;
 
 /***
+ * @extends Business
  * Экспортируется в сущности которые имеют банковские счета.
  */
 trait BankPaymentAccountsTrait
