@@ -77,8 +77,16 @@ class BusinessRepository extends ServiceEntityRepository
      */
     public function findLike(string $value , array $fields = [], array $types = [], ?int $limit = null, ?int $offset = null, ?array $orderBy = null):array
     {
+
+        $aliases = [
+            "inn" => "inn.value",
+            "kpp" => "kpp.value",
+            "ogrn" => "ogrn.value",
+            "title" => "title",
+        ];
+
         if(empty($fields))
-            $fields = ["inn","ogrn","kpp","title"];
+            $fields = ["inn","ogrn"];
 
         if(empty($types))
             $types = [ "PHYSICAL", "EMPLOYED", "ENTREPRENEUR", "COMPANY", "BANK" ];
@@ -94,45 +102,21 @@ class BusinessRepository extends ServiceEntityRepository
         $builder->from(Bank::class, "b");
 
 
-        foreach ( $fields as $field ){
-            $builder->setParameter("like_$field","%$value%");
+        $newFields = [];
+        foreach ( $fields as $field )
+            if(array_key_exists($field,$aliases))
+                $newFields[$field] = $aliases[$field];
+        $fields = $newFields;
+
+        foreach ( $fields as $field => $fieldAddress ){
+            if(is_null($builder->getParameter("like_$field")))
+                $builder->setParameter("like_$field","%$value%");
+
             if(in_array($field,["inn","ogrn"])){
-                $builder->orWhere("i.$field.value LIKE :like_$field");
+                $builder->orWhere("i.$fieldAddress LIKE :like_$field");
             }
-            /*if(in_array($field,[""]))
-                $builder->orWhere("f.person.$field LIKE :like_$field");*/
-
-            /*if(in_array($field,[]))
-                $builder->orWhere("s.$field LIKE :like_$field");*/
-
-            /*if(in_array($field,[]))
-                $builder->orWhere("i.$field LIKE :like_$field");*/
-
-            /**if(in_array($field,["inn","ogrn","kpp","title"]))
-                $builder->orWhere("c.$field LIKE :like_$field");
-
-            if(in_array($field,["inn","kpp","bik","title"]))
-                $builder->orWhere("b.$field LIKE :like_$field");**/
         }
- /*           $builder->setParameter("like_$field","%$value%")
-                ->orWhere("f.$field LIKE :like_$field")
-                ->orWhere("s.$field LIKE :like_$field")
-                ->orWhere("i.$field LIKE :like_$field")
-                ->orWhere("c.$field LIKE :like_$field")
-                ->orWhere("b.$field LIKE :like_$field");*/
 
-        /*foreach ( $fields as $field )
-            foreach ($types as $type)
-                $builder->orWhere("c.business_type = :TYPE_$type AND c.$field LIKE :like_$field")
-                    ->setParameter("like_$field","%$value%");
-
-        foreach ($types as $type)
-            $builder->setParameter("TYPE_$type",$type);*/
-
-
-        /*foreach ( $fields as $field )
-                $builder->orWhere("c.$field LIKE :like_$field")
-                    ->setParameter("like_$field","%$value%");*/
 
        // $this->modifierBuilder->modifyOrderBy("c", $builder, $orderBy);
         $this->modifierBuilder->modifyLimit( $builder, $limit );
