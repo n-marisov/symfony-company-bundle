@@ -152,7 +152,7 @@ abstract class Business
      * @var BankPaymentAccount|null
      */
     #[ManyToOne(targetEntity: BankPaymentAccount::class,cascade: ['persist'])]
-    #[JoinColumn(name: 'default_payment_account', unique: true, nullable: true)]
+    #[JoinColumn(name: 'default_payment_account', nullable: true)]
     protected ?BankPaymentAccount $defaultPaymentAccount = null;
 
     /***
