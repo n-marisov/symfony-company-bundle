@@ -138,7 +138,7 @@ class BusinessRepository extends ServiceEntityRepository
         $this->modifierBuilder->modifyLimit( $builder, $limit );
         $this->modifierBuilder->modifyOffset($builder, $offset );
 
-        dump($builder->getQuery()->getSQL());
+       //dump($builder->getQuery()->getSQL());
 
         return $builder->getQuery()->getResult();
     }
