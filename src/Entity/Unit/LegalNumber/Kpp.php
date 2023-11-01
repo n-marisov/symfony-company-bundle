@@ -15,7 +15,7 @@ use Stringable;
 #[Embeddable]
 class Kpp implements Stringable
 {
-    #[Column(name: 'kpp', length: '9')]
+    #[Column(name: 'kpp', length: '9',nullable: true)]
     protected string $value;
 
     /**

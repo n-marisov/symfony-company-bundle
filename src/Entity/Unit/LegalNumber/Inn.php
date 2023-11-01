@@ -24,7 +24,7 @@ class Inn implements Stringable
      * Значение ИНН хранится как строка.
      * @var string
      */
-    #[Column(name: 'inn',length: '12')]
+    #[Column(name: 'inn',length: '12',nullable: true)]
     protected string $value;
 
     /**

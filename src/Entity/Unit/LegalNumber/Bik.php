@@ -16,7 +16,7 @@ use Stringable;
 class Bik implements Stringable
 {
 
-    #[Column( name: "bik", length: 9)]
+    #[Column( name: "bik", length: 9,nullable: true)]
     protected string $value;
 
     /**

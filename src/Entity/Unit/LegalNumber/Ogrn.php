@@ -19,7 +19,7 @@ use function substr;
 #[Embeddable]
 class Ogrn implements Stringable
 {
-    #[Column(name: 'ogrn', length: '15')]
+    #[Column(name: 'ogrn', length: '15',nullable: true)]
     protected string $value;
 
     /**
