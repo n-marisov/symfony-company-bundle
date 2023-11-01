@@ -96,7 +96,9 @@ class BusinessRepository extends ServiceEntityRepository
 
         foreach ( $fields as $field ){
             $builder->setParameter("like_$field","%$value%");
-
+            if(in_array($field,["inn","ogrn"])){
+                $builder->orWhere("i.$field.value LIKE :like_$field");
+            }
             /*if(in_array($field,[""]))
                 $builder->orWhere("f.person.$field LIKE :like_$field");*/
 
@@ -106,11 +108,11 @@ class BusinessRepository extends ServiceEntityRepository
             /*if(in_array($field,[]))
                 $builder->orWhere("i.$field LIKE :like_$field");*/
 
-            if(in_array($field,["inn","ogrn","kpp","title"]))
+            /**if(in_array($field,["inn","ogrn","kpp","title"]))
                 $builder->orWhere("c.$field LIKE :like_$field");
 
             if(in_array($field,["inn","kpp","bik","title"]))
-                $builder->orWhere("b.$field LIKE :like_$field");
+                $builder->orWhere("b.$field LIKE :like_$field");**/
         }
  /*           $builder->setParameter("like_$field","%$value%")
                 ->orWhere("f.$field LIKE :like_$field")
