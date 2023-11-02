@@ -78,14 +78,14 @@ class BusinessRepository extends ServiceEntityRepository
     /***
      * Ищет организацию.
      * @param string $value Строка для поиска
-     * @param array $fields Поля по которым идет поиск
-     * @param array $types Типы организации среди которых идет поиск
+     * @param array|null $fields Поля по которым идет поиск
+     * @param array|null $types Типы организации среди которых идет поиск
      * @param int|null $limit Максимальное кол-во результатов
      * @param int|null $offset Отступ
      * @param array|null $orderBy Сортировка
      * @return list<Business>
      */
-    public function findLike(string $value , array $fields = [], array $types = [], ?int $limit = null, ?int $offset = null, ?array $orderBy = null):array
+    public function findLike(string $value , ?array $fields = null, ?array $types = null, ?int $limit = null, ?int $offset = null, ?array $orderBy = null):array
     {
         $value =  "%".trim($value)."%";
         $aliases = [
@@ -96,6 +96,10 @@ class BusinessRepository extends ServiceEntityRepository
             "title" => "title",
         ];
 
+        if(empty($fields))
+            $fields = ["inn","ogrn","kpp","bik","title"];
+
+
         $builder =  $this->createQueryBuilder('b');
 
         $whereFields = $builder->expr()->orX();
@@ -103,29 +107,43 @@ class BusinessRepository extends ServiceEntityRepository
             if(array_key_exists($field,$aliases)){
                 $whereFields->add( $builder->expr()->like("b.{$aliases[$field]}",":$field") );
                 $builder->setParameter( $field, $value );
-            }
-            if($field == "title")
-            {
-                $builder
-                ->leftJoin(Person::class,"p",Join::WITH,"b.person = p.id");
-                $whereFields
-                    ->add($builder->expr()->like("p.surname",":$field"))
-                    ->add($builder->expr()->like("p.firstname",":$field"))
-                    ->add($builder->expr()->like("p.patronymic",":$field"));
+                if($field == "title") {
+                    $builder
+                        ->leftJoin(Person::class,"p",Join::WITH,"b.person = p.id");
+                    $whereFields
+                        ->add($builder->expr()->like("p.surname",":$field"))
+                        ->add($builder->expr()->like("p.firstname",":$field"))
+                        ->add($builder->expr()->like("p.patronymic",":$field"));
+                }
             }
         }
+        $builder->andWhere($whereFields);
 
-        $typesWrite = $builder->expr()->orX();
+        /***
+         * Ограничиваем поиск по типу данных.
+         */
+        if(!empty($types)){
+            $typesWrite = $builder->expr()->orX();
+            foreach ($types as $class){
+                if(in_array($class,self::BUSINESS_TYPES))
+                    $typesWrite->add($builder->expr()->isInstanceOf("b",$class));
+            }
+            $builder->andWhere($typesWrite);
+        }
+
+        /*$typesWrite = $builder->expr()->orX();
 
         foreach ($types as $type){
             if(in_array($type,self::BUSINESS_TYPES))
                 $typesWrite->add("b  INSTANCE OF $type");
         }
 
+        $builder->expr()->isInstanceOf();*/
 
-        $builder->andWhere($whereFields)->andWhere($typesWrite);
 
-        $this->modifierBuilder->modifyOrderBy("c", $builder, $orderBy);
+        //$builder->andWhere($whereFields)->andWhere($typesWrite);
+
+        $this->modifierBuilder->modifyOrderBy("b", $builder, $orderBy);
         $this->modifierBuilder->modifyLimit( $builder, $limit );
         $this->modifierBuilder->modifyOffset($builder, $offset );
 
