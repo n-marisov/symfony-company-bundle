@@ -109,9 +109,9 @@ class BusinessRepository extends ServiceEntityRepository
                 $builder
                 ->leftJoin(Person::class,"p",Join::WITH,"b.person = p.id");
                 $whereFields
-                    ->add($builder->expr()->like("b.person.surname",":$field"))
-                    ->add($builder->expr()->like("b.person.firstname",":$field"))
-                    ->add($builder->expr()->like("b.person.patronymic",":$field"));
+                    ->add($builder->expr()->like("p.surname",":$field"))
+                    ->add($builder->expr()->like("p.firstname",":$field"))
+                    ->add($builder->expr()->like("p.patronymic",":$field"));
             }
         }
 
