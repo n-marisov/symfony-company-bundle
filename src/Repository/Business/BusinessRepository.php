@@ -104,7 +104,7 @@ class BusinessRepository extends ServiceEntityRepository
                 $whereFields->add( $builder->expr()->like("b.{$aliases[$field]}",":$field") );
                 $builder->setParameter( $field, $value );
             }
-            if($fields == "title")
+            if($field == "title")
             {
                 $builder
                 ->leftJoin(Person::class,"p",Join::WITH,"b.person = p.id");
