@@ -3,6 +3,7 @@
 namespace Maris\Symfony\Company\Repository\Business;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Maris\Symfony\Company\Entity\Business\Bank;
@@ -12,6 +13,7 @@ use Maris\Symfony\Company\Entity\Business\Employed;
 use Maris\Symfony\Company\Entity\Business\Entrepreneur;
 use Maris\Symfony\Company\Entity\Business\Physical;
 use Maris\Symfony\Company\Service\QueryBuilderModifier;
+use Maris\Symfony\Person\Entity\Person;
 use TypeError;
 
 /**
@@ -101,6 +103,15 @@ class BusinessRepository extends ServiceEntityRepository
             if(array_key_exists($field,$aliases)){
                 $whereFields->add( $builder->expr()->like("b.{$aliases[$field]}",":$field") );
                 $builder->setParameter( $field, $value );
+            }
+            if($fields == "title")
+            {
+                $builder
+                ->leftJoin(Person::class,"p",Join::WITH,"b.person = p.id");
+                $whereFields
+                    ->add($builder->expr()->like("b.person.surname",":$field"))
+                    ->add($builder->expr()->like("b.person.firstname",":$field"))
+                    ->add($builder->expr()->like("b.person.patronymic",":$field"));
             }
         }
 
