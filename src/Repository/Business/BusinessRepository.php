@@ -4,7 +4,6 @@ namespace Maris\Symfony\Company\Repository\Business;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Maris\Symfony\Company\Entity\Business\Bank;
 use Maris\Symfony\Company\Entity\Business\Business;
@@ -12,9 +11,10 @@ use Maris\Symfony\Company\Entity\Business\Company;
 use Maris\Symfony\Company\Entity\Business\Employed;
 use Maris\Symfony\Company\Entity\Business\Entrepreneur;
 use Maris\Symfony\Company\Entity\Business\Physical;
+use Maris\Symfony\Company\Entity\Unit\LegalNumber\Inn;
+use Maris\Symfony\Company\Factory\InnFactory;
 use Maris\Symfony\Company\Service\QueryBuilderModifier;
 use Maris\Symfony\Person\Entity\Person;
-use TypeError;
 
 /**
  * Репозиторий для всех представителей бизнеса (объектов Business::class).
@@ -41,14 +41,17 @@ class BusinessRepository extends ServiceEntityRepository
      */
     protected QueryBuilderModifier $modifierBuilder;
 
+    protected InnFactory $innFactory;
+
     /***
      * @param ManagerRegistry $registry
      * @param QueryBuilderModifier $modifier
      */
-    public function __construct( ManagerRegistry $registry, QueryBuilderModifier $modifier )
+    public function __construct( ManagerRegistry $registry, QueryBuilderModifier $modifier,InnFactory $innFactory )
     {
         parent::__construct( $registry, Business::class );
         $this->modifierBuilder = $modifier;
+        $this->innFactory = $innFactory;
     }
 
     /**
@@ -76,7 +79,7 @@ class BusinessRepository extends ServiceEntityRepository
     }
 
     /***
-     * Ищет организацию.
+     * Ищет организацию по неполному параметру.
      * @param string $value Строка для поиска
      * @param array|null $fields Поля по которым идет поиск
      * @param array|null $types Типы организации среди которых идет поиск
@@ -113,7 +116,9 @@ class BusinessRepository extends ServiceEntityRepository
                     $whereFields
                         ->add($builder->expr()->like("p.surname",":$field"))
                         ->add($builder->expr()->like("p.firstname",":$field"))
-                        ->add($builder->expr()->like("p.patronymic",":$field"));
+                        ->add($builder->expr()->like("p.patronymic",":$field"))
+                        /*->add($builder->expr()->like("b.legalForm.short",":$field"))
+                        ->add($builder->expr()->like("b.legalForm.full",":$field"))*/;
                 }
             }
         }
@@ -131,22 +136,41 @@ class BusinessRepository extends ServiceEntityRepository
             $builder->andWhere($typesWrite);
         }
 
-        /*$typesWrite = $builder->expr()->orX();
-
-        foreach ($types as $type){
-            if(in_array($type,self::BUSINESS_TYPES))
-                $typesWrite->add("b  INSTANCE OF $type");
-        }
-
-        $builder->expr()->isInstanceOf();*/
-
-
-        //$builder->andWhere($whereFields)->andWhere($typesWrite);
-
         $this->modifierBuilder->modifyOrderBy("b", $builder, $orderBy);
         $this->modifierBuilder->modifyLimit( $builder, $limit );
         $this->modifierBuilder->modifyOffset($builder, $offset );
 
         return $builder->getQuery()->getResult();
     }
+
+    /**
+     * Получает все организации персоны.
+     * @return array<Physical|Employed|Entrepreneur>
+     */
+    public function findByPerson( Person $person ):array
+    {
+        $builder =  $this->createQueryBuilder('b');
+
+        $builder->andWhere("b.person = :person")
+            ->setParameter("person",$person);
+
+        return $builder->getQuery()->getResult();
+    }
+
+    /**
+     * @return array<Employed|Entrepreneur|Company|Bank>
+     * @throws \ReflectionException
+     */
+    public function findByInn( string|Inn $inn ):array
+    {
+        $builder =  $this->createQueryBuilder('b');
+
+        $builder->andWhere("b.inn.value = :inn")
+            ->setParameter("inn", (is_string($inn) ? $this->innFactory->create($inn) : $inn)?->value );
+
+        return $builder->getQuery()->getResult();
+    }
+   // public function findByOgrn():array{}
+   // public function findByKpp():array{}
+   // public function findByBik(){}
 }
